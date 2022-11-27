@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Runtime: nodejs16.x
+    Handler: index.handler
+    Timeout: 5
+
+Metadata: &Metadata
+  BuildMethod: esbuild
+  BuildProperties:
+    Minify: true
+    Target: "es2020"
+    EntryPoints: 
+    - src/index.ts
+
+Resources:
+  GeneratePdf:
+    Type: AWS::Serverless::Function
+    Metadata:
+      <<: *Metadata
+    Properties:
+      CodeUri: functions/generate-pdf
+      Events:
+        Handler:
+          Type: Api
+          Properties:
+            Path: /generate-pdf
+            Method: get
+
+  SendEmail:
+    Type: AWS::Serverless::Function
+    Metadata:
+      <<: *Metadata
+    Properties:
+      CodeUri: functions/send-email
+      Events:
+        Handler:
+          Type: Api
+          Properties:
+            Path: /send-email
+            Method: get

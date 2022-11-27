@@ -1,0 +1,18 @@
+{
+  "name": "sam-app",
+  "version": "1.0.0",
+  "description": "This project contains source code and supporting files for a serverless application.",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "sam local start-api --warm-containers EAGER",
+    "deploy:dev": "sam deploy --config-env dev",
+    "deploy:prod": "sam deploy --config-env prod",
+    "build": "sam build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109"
+  }
+}
