@@ -32,9 +32,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.REGION }}
-
-      - name: Install npm dependencies
-        run: npm ci
       
       - name: AWS SAM build
         run: sam build --use-container
