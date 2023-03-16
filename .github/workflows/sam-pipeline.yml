@@ -29,6 +29,8 @@ jobs:
           echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
           echo "organization variable : ${{ vars.ENVIRONMENT_STAGE }}"
           echo "organization XD : ${{ vars.XD }}"
+          echo "organization XD2 : ${{ vars.REGION }}
+          echo "organization XD3 : $REGION
         
       - name: Checkout to repo
         uses: actions/checkout@v2
