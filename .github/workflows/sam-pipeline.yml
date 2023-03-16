@@ -1,7 +1,16 @@
 name: deploy-aws-sam-serverless
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+  
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  STACK_NAME: ${{ vars.STACK_NAME }}
+  STACK_BUCKET: ${{ vars.STACK_BUCKET }}
+  REGION: ${{ vars.REGION }}
+  FILES_BUCKET: ${{ vars.FILES_BUCKET }}
+  BILLING_INVOICE_GENERATION_URL: ${{ vars.BILLING_INVOICE_GENERATION_URL }}
 
 # on:
 #   push:
@@ -12,14 +21,6 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      STACK_NAME: ${{ vars.STACK_NAME }}
-      STACK_BUCKET: ${{ vars.STACK_BUCKET }}
-      REGION: ${{ vars.REGION }}
-      FILES_BUCKET: ${{ vars.FILES_BUCKET }}
-      BILLING_INVOICE_GENERATION_URL: ${{ vars.BILLING_INVOICE_GENERATION_URL }}
     steps:
       - name: Checkout to repo
         uses: actions/checkout@v2
