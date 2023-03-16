@@ -43,7 +43,7 @@ jobs:
           sam deploy \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
-          --stack-name $TACK_NAME \
+          --stack-name $STACK_NAME \
           --s3-prefix $STACK_NAME \
           --s3-bucket $BUCKET \
           --region $REGION \
