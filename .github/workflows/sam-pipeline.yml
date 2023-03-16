@@ -15,7 +15,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     env:
-      REGGG: secrets.REGION
+      REGGG: ${{ secrets.REGION }}
     steps:
       - name: testing ENVs
         run: echo $REGGG
