@@ -1,10 +1,13 @@
 name: deploy-aws-sam-serverless
 
 on:
-  push:
-    branches:
-      - master
-      - testing
+  workflow_dispatch
+
+# on:
+#   push:
+#     branches:
+#       - master
+#       - testing
 
 jobs:
   build-deploy:
