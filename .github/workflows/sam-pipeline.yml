@@ -49,4 +49,4 @@ jobs:
           --s3-bucket $STACK_BUCKET \
           --region $REGION \
           --capabilities "CAPABILITY_IAM" \
-          --parameter-overrides "S3Bucket=$FILES_BUCKET BillingInvoiceGenerationUrl=$BILLING_INVOICE_GENERATION_URL"
+          --parameter-overrides "S3Bucket=$FILES_BUCKET,BillingInvoiceGenerationUrl=$BILLING_INVOICE_GENERATION_URL"
