@@ -23,6 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ vars.ENVIRONMENT_STAGE }}
     steps:
+      - name: Use variables
+        run: |
+          echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
+          echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
+          echo "organization variable : ${{ vars.ENVIRONMENT_STAGE }}"
+        
       - name: Checkout to repo
         uses: actions/checkout@v2
 
