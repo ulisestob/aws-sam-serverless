@@ -42,4 +42,13 @@ jobs:
         run: sam build --use-container
 
       - name: AWS SAM deploy
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ secrets.STACK_NAME }} --s3-prefix ${{ secrets.STACK_NAME }} --s3-bucket ${{ secrets.BUCKET }} --region ${{ secrets.REGION }} --capabilities "CAPABILITY_IAM"
+        run: |
+          sam deploy \
+          --no-confirm-changeset \
+          --no-fail-on-empty-changeset \
+          --stack-name ${{ secrets.STACK_NAME }} \
+          --s3-prefix ${{ secrets.STACK_NAME }} \
+          --s3-bucket ${{ secrets.BUCKET }} \
+          --region ${{ secrets.REGION }} \
+          --capabilities "CAPABILITY_IAM" \
+          --parameter-overrides ParameterKey1=$REGGG
