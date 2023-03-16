@@ -33,7 +33,7 @@ jobs:
         with:
           aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-          aws-region: ${{ REGION }}
+          aws-region: ${{ $REGION }}
       
       - name: AWS SAM build
         run: sam build --use-container
