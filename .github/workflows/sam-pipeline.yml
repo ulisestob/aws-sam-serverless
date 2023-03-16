@@ -48,4 +48,4 @@ jobs:
           --s3-bucket $BUCKET \
           --region $REGION \
           --capabilities "CAPABILITY_IAM" \
-          --parameter-overrides ParameterKey1=$REGGG
+          --parameter-overrides "ParameterKey1=$REGION"
