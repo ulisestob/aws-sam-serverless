@@ -1,12 +1,5 @@
 name: deploy-aws-sam-serverless
 
-# ENVIRONMENT VARS:
-# AWS_ACCESS_KEY_ID
-# AWS_SECRET_ACCESS_KEY
-# STACK_NAME
-# BUCKET
-# REGION
-
 on:
   push:
     branches:
@@ -15,7 +8,11 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     env:
-      REGGG: ${{ secrets.REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      STACK_NAME: ${{ secrets.STACK_NAME }}
+      BUCKET: ${{ secrets.BUCKET }}
+      REGION: ${{ secrets.REGION }}
     steps:
       - name: testing ENVs
         run: echo $REGGG
@@ -34,9 +31,9 @@ jobs:
       - name: Configure credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.REGION }}
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-region: $REGION
       
       - name: AWS SAM build
         run: sam build --use-container
@@ -46,9 +43,9 @@ jobs:
           sam deploy \
           --no-confirm-changeset \
           --no-fail-on-empty-changeset \
-          --stack-name ${{ secrets.STACK_NAME }} \
-          --s3-prefix ${{ secrets.STACK_NAME }} \
-          --s3-bucket ${{ secrets.BUCKET }} \
-          --region ${{ secrets.REGION }} \
+          --stack-name $TACK_NAME \
+          --s3-prefix $STACK_NAME \
+          --s3-bucket $BUCKET \
+          --region $REGION \
           --capabilities "CAPABILITY_IAM" \
           --parameter-overrides ParameterKey1=$REGGG
