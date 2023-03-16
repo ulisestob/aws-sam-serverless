@@ -14,7 +14,12 @@ on:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    env:
+      REGGG: secrets.REGION
     steps:
+      - name: testing ENVs
+        run: echo $REGGG
+
       - name: Checkout to repo
         uses: actions/checkout@v2
 
