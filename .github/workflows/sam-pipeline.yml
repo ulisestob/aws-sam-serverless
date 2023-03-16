@@ -15,7 +15,7 @@ jobs:
       REGION: ${{ secrets.REGION }}
     steps:
       - name: testing ENVs
-        run: echo $REGGG
+        run: echo $REGION
 
       - name: Checkout to repo
         uses: actions/checkout@v2
@@ -33,7 +33,7 @@ jobs:
         with:
           aws-access-key-id: $AWS_ACCESS_KEY_ID
           aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-          aws-region: $REGION
+          aws-region: ${{ REGION }}
       
       - name: AWS SAM build
         run: sam build --use-container
