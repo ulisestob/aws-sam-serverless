@@ -21,6 +21,7 @@ env:
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    environment: ${{ vars.ENVIRONMENT_STAGE }}
     steps:
       - name: Checkout to repo
         uses: actions/checkout@v2
