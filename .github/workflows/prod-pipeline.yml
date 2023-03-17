@@ -19,47 +19,35 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     steps:
-      - name: Use variables
+      - name: Checkout to repo
+        uses: actions/checkout@v2
+
+      - name: Setup node environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      
+      - name: Setup aws sam
+        uses: aws-actions/setup-sam@v1
+      
+      - name: Configure credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+      
+      - name: AWS SAM build
+        run: sam build --use-container
+
+      - name: AWS SAM deploy
         run: |
-          echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
-          echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
-          echo "organization variable : ${{ vars.ENVIRONMENT_STAGE }}"
-          echo "organization XD : ${{ vars.XD }}"
-          echo "organization XD2 : ${{ vars.REGION }}"
-          echo "organization XD3 : $REGION"
-          echo "organization XD4 : ${{ github.ref_name }}"
-          echo "organization XD5: ${{ env.ENVIRONMENT }}"
-          echo "organization XD6: ${{ vars.BILLING_INVOICE_GENERATION_URL }}"
-        
-#       - name: Checkout to repo
-#         uses: actions/checkout@v2
-
-#       - name: Setup node environment
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: '16.x'
-      
-#       - name: Setup aws sam
-#         uses: aws-actions/setup-sam@v1
-      
-#       - name: Configure credentials
-#         uses: aws-actions/configure-aws-credentials@v1
-#         with:
-#           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-#           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ env.REGION }}
-      
-#       - name: AWS SAM build
-#         run: sam build --use-container
-
-#       - name: AWS SAM deploy
-#         run: |
-#           sam deploy \
-#           --no-confirm-changeset \
-#           --no-fail-on-empty-changeset \
-#           --stack-name $STACK_NAME \
-#           --s3-prefix $STACK_NAME \
-#           --s3-bucket $STACK_BUCKET \
-#           --region $REGION \
-#           --capabilities "CAPABILITY_IAM" \
-#           --parameter-overrides "S3Bucket=$FILES_BUCKET,BillingInvoiceGenerationUrl=$BILLING_INVOICE_GENERATION_URL"
+          sam deploy \
+          --no-confirm-changeset \
+          --no-fail-on-empty-changeset \
+          --stack-name $STACK_NAME \
+          --s3-prefix $STACK_NAME \
+          --s3-bucket $STACK_BUCKET \
+          --region $REGION \
+          --capabilities "CAPABILITY_IAM" \
+          --parameter-overrides "S3Bucket=$FILES_BUCKET,BillingInvoiceGenerationUrl=$BILLING_INVOICE_GENERATION_URL"
